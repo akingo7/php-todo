@@ -93,7 +93,7 @@ pipeline {
                  server.upload spec: uploadSpec
                }
             }
-    }
+         }
 
     stage('Deploy to Dev Environment') {
       steps {

@@ -54,7 +54,6 @@ pipeline {
       }
     }
 
-
     stage('SonarQube Quality Gate') {
       when { branch pattern: "^develop*|^hotfix*|^release*|^main*", comparator: "REGEXP"}
         environment {
@@ -69,18 +68,12 @@ pipeline {
             }
         }
     }
-
-
-
-    
-    
     
     stage('Package Artifact') {
       steps {
         sh 'zip -qr php-todo.zip ${WORKSPACE}/*'
       }
     }
-
 
     stage ('Upload Artifact to Artifactory') {
           steps {
@@ -102,18 +95,12 @@ pipeline {
             }
     }
 
-
-
     stage('Deploy to Dev Environment') {
       steps {
         build(job: 'ansible-config-mgt/master', parameters: [[$class: 'StringParameterValue', name: 'env', value: 'dev']], wait: true)
       }
     }
-
-
-  
-        
-        }
+  }
 }
 
 
